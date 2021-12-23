@@ -1,4 +1,3 @@
-
 name:"Mental and body pain"
 
 input: "data"
@@ -98,16 +97,118 @@ layer {
   }
 }
 
+layer {
+  name: "flatten"
+  type: "Flatten"
+  bottom: "pool3" 
+  top: "flatten"
+  flatten_param {
+    axis: 1
+  }
+}
+
+
+layer {
+  name: "dence1"
+  type: "InnerProduct"
+  # learning rate and decay multipliers for the weights
+  param { lr_mult: 1 decay_mult: 1 }
+  # learning rate and decay multipliers for the biases
+  param { lr_mult: 2 decay_mult: 0 }
+  inner_product_param {
+    num_output: 128
+    weight_filler {
+      type: "relu"
+      std: 0.01
+    }
+    bias_filler {
+      type: "relu"
+      value: 0
+    }
+  }
+  bottom: "flatten"
+  top: "dence1"
+}
+
+layer {
+  name: "dence2"
+  type: "InnerProduct"
+  # learning rate and decay multipliers for the weights
+  param { lr_mult: 1 decay_mult: 1 }
+  # learning rate and decay multipliers for the biases
+  param { lr_mult: 2 decay_mult: 0 }
+  inner_product_param {
+    num_output: 64
+    weight_filler {
+      type: "relu"
+      std: 0.01
+    }
+    bias_filler {
+      type: "relu"
+      value: 0
+    }
+  }
+  bottom: "dence1"
+  top: "dence2"
+}
+
+layer {
+  name: "dence3"
+  type: "InnerProduct"
+  # learning rate and decay multipliers for the weights
+  param { lr_mult: 1 decay_mult: 1 }
+  # learning rate and decay multipliers for the biases
+  param { lr_mult: 2 decay_mult: 0 }
+  inner_product_param {
+    num_output: 32
+    weight_filler {
+      type: "relu"
+      std: 0.01
+    }
+    bias_filler {
+      type: "relu"
+      value: 0
+    }
+  }
+  bottom: "dence2"
+  top: "dence3"
+}
+
 
 layer {
   name: "drop"
   type: "Dropout"
-  bottom: "pool3"
+  bottom: "dence3"
   top: "drop"
   dropout_param {
     dropout_ratio: 0.5
   }
 }
+
+
+layer {
+  name: "dence4"
+  type: "InnerProduct"
+  # learning rate and decay multipliers for the weights
+  param { lr_mult: 1 decay_mult: 1 }
+  # learning rate and decay multipliers for the biases
+  param { lr_mult: 2 decay_mult: 0 }
+  inner_product_param {
+    num_output: 1
+    weight_filler {
+      type: "sigmoid"
+      std: 0.01
+    }
+    bias_filler {
+      type: "sigmoid"
+      value: 0
+    }
+  }
+  bottom: "drop"
+  top: "dence4"
+}
+
+
 
 
 
