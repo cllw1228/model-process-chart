@@ -111,9 +111,9 @@ layer {
 layer {
   name: "dence1"
   type: "InnerProduct"
-  # learning rate and decay multipliers for the weights
+  
   param { lr_mult: 1 decay_mult: 1 }
-  # learning rate and decay multipliers for the biases
+
   param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
     num_output: 128
@@ -133,9 +133,9 @@ layer {
 layer {
   name: "dence2"
   type: "InnerProduct"
-  # learning rate and decay multipliers for the weights
+ 
   param { lr_mult: 1 decay_mult: 1 }
-  # learning rate and decay multipliers for the biases
+  
   param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
     num_output: 64
@@ -155,9 +155,9 @@ layer {
 layer {
   name: "dence3"
   type: "InnerProduct"
-  # learning rate and decay multipliers for the weights
+  
   param { lr_mult: 1 decay_mult: 1 }
-  # learning rate and decay multipliers for the biases
+  
   param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
     num_output: 32
@@ -189,9 +189,9 @@ layer {
 layer {
   name: "dence4"
   type: "InnerProduct"
-  # learning rate and decay multipliers for the weights
+ 
   param { lr_mult: 1 decay_mult: 1 }
-  # learning rate and decay multipliers for the biases
+  
   param { lr_mult: 2 decay_mult: 0 }
   inner_product_param {
     num_output: 1
@@ -207,6 +207,10 @@ layer {
   bottom: "drop"
   top: "dence4"
 }
+
+
+
+
 
 
 
